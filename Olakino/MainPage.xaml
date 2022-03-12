@@ -50,6 +50,6 @@
 
         <TextBlock Grid.Row="2" Margin="0,16,0,16" />
 
-        <TimePicker Grid.Row="3" HorizontalAlignment="Right" MinWidth="400" Margin="32,0,32,0" />
+        <TimePicker Grid.Row="3" HorizontalAlignment="Right" MinWidth="400" Margin="32,0,32,0" ClockIdentifier="24HourClock" Time="22:00:00" />
     </Grid>
 </Page>
