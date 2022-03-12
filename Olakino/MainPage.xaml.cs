@@ -1,4 +1,6 @@
-﻿using System.Globalization;
+﻿using System;
+using System.Globalization;
+using System.Threading;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
@@ -11,16 +13,18 @@ namespace Olakino
     /// </summary>
     public sealed partial class MainPage : Page
     {
+        private Timer? _timer;
+        private TimeSpan _timeSpan;
+
         public MainPage()
         {
             this.InitializeComponent();
+            TryStartTimer();
         }
 
         private void OnAddClick(object sender, RoutedEventArgs e)
         {
             var gram = GramTextBox.Text;
-            var amount = AmountTextBox.Text;
-            var percent = PercentTextBox.Text;
         }
 
         private void OnAmountTextChanged(object sender, TextChangedEventArgs e)
@@ -42,6 +46,34 @@ namespace Olakino
             }
 
             GramTextBox.Text = (amount * percent).ToString(CultureInfo.CurrentCulture);
+        }
+
+        private void OnTimerUpdated(object state)
+        {
+            var duration = _timeSpan.Subtract(DateTime.Now.TimeOfDay);
+            if (duration <= TimeSpan.Zero)
+            {
+                _timer?.Dispose();
+                _timer = null;
+                return;
+            }
+
+            // TODO
+        }
+
+        private void OnSelectedTimeChanged(TimePicker sender, TimePickerSelectedValueChangedEventArgs args)
+        {
+            var time = args.NewTime;
+            if (time == null) return;
+            _timeSpan = time.Value;
+            TryStartTimer();
+        }
+
+        private void TryStartTimer()
+        {
+            var duration = _timeSpan.Subtract(DateTime.Now.TimeOfDay);
+            if (duration <= TimeSpan.Zero || _timer != null) return;
+            _timer = new Timer(OnTimerUpdated, null, 1000, 1000);
         }
     }
 }
