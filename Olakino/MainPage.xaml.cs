@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Globalization;
 using System.Threading;
+using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
@@ -48,17 +49,20 @@ namespace Olakino
             GramTextBox.Text = (amount * percent).ToString(CultureInfo.CurrentCulture);
         }
 
-        private void OnTimerUpdated(object state)
+        private async void OnTimerUpdated(object state)
         {
             var duration = _timeSpan.Subtract(DateTime.Now.TimeOfDay);
+            var text = duration.ToString();
             if (duration <= TimeSpan.Zero)
             {
+                text = "NaN";
                 _timer?.Dispose();
                 _timer = null;
-                return;
             }
 
-            // TODO
+            await TimerText.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+                TimerText.Text = text
+            );
         }
 
         private void OnSelectedTimeChanged(TimePicker sender, TimePickerSelectedValueChangedEventArgs args)
