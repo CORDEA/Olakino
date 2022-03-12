@@ -9,13 +9,17 @@
 
     <Grid Margin="16">
         <Grid.RowDefinitions>
+            <RowDefinition Height="32" />
             <RowDefinition Height="Auto" />
             <RowDefinition />
-            <RowDefinition Height="80" />
-            <RowDefinition Height="32" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <Grid Grid.Row="0">
+        <TimePicker x:Name="TimePicker" SelectedTimeChanged="OnSelectedTimeChanged" Grid.Row="0"
+                    HorizontalAlignment="Right" MinWidth="400" Margin="32,0,32,0" ClockIdentifier="24HourClock"
+                    Time="22:00:00" />
+
+        <Grid Grid.Row="1">
             <Grid.RowDefinitions>
                 <RowDefinition Height="32" />
                 <RowDefinition Height="4" />
@@ -46,12 +50,13 @@
             </Button>
         </Grid>
 
-        <ListView Grid.Row="1" Margin="0,16,0,16" />
+        <ListView Grid.Row="2" />
 
-        <TextBlock x:Name="TimerText" Grid.Row="2" Margin="0,16,0,16" />
-
-        <TimePicker x:Name="TimePicker" SelectedTimeChanged="OnSelectedTimeChanged" Grid.Row="3"
-                    HorizontalAlignment="Right" MinWidth="400" Margin="32,0,32,0" ClockIdentifier="24HourClock"
-                    Time="22:00:00" />
+        <StackPanel Grid.Row="3" Margin="0,32,0,32" Orientation="Horizontal" HorizontalAlignment="Right">
+            <TextBlock Text="Remaining" Margin="0,0,16,0" FontSize="20" VerticalAlignment="Center" />
+            <TextBlock x:Name="TimerText" Margin="0,0,32,0" FontSize="32" />
+            <TextBlock Text="Current amount" Margin="0,0,16,0" FontSize="20" VerticalAlignment="Center" />
+            <TextBlock Margin="0,0,0,0" FontSize="32" />
+        </StackPanel>
     </Grid>
 </Page>
