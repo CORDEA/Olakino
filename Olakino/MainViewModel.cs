@@ -66,6 +66,8 @@ public class MainViewModel : INotifyPropertyChanged
         NumberRounder = new SignificantDigitsNumberRounder()
     };
 
+    public double Calorie { get; set; }
+
     private double _gram;
 
     public double Gram
