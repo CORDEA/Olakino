@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Threading;
 using Windows.UI.Core;
@@ -18,6 +19,8 @@ namespace Olakino
         private TimeSpan _timeSpan;
         private double _currentAmount = 0;
 
+        public ObservableCollection<ListItem> Items { get; } = new ObservableCollection<ListItem>();
+
         public MainPage()
         {
             this.InitializeComponent();
@@ -26,14 +29,16 @@ namespace Olakino
 
         private void OnAddClick(object sender, RoutedEventArgs e)
         {
-            var gram = GramTextBox.Text;
-            if (!double.TryParse(gram, out var value))
+            if (!double.TryParse(GramTextBox.Text, out var gram) ||
+                !int.TryParse(AmountTextBox.Text, out var amount) ||
+                !double.TryParse(PercentTextBox.Text, out var percent))
             {
                 return;
             }
 
-            _currentAmount += value;
+            _currentAmount += gram;
             CurrentAmountText.Text = _currentAmount.ToString(CultureInfo.CurrentCulture);
+            Items.Add(new ListItem($"{gram:N}", $"{amount:N} / {percent:P1}"));
         }
 
         private void OnAmountTextChanged(object sender, TextChangedEventArgs e)

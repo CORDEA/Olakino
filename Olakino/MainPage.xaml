@@ -4,6 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:olakino="using:Olakino"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
@@ -50,7 +51,18 @@
             </Button>
         </Grid>
 
-        <ListView Grid.Row="2" />
+        <ListView Grid.Row="2" ItemsSource="{x:Bind Items}" Margin="0,32,0,16">
+            <ListView.ItemTemplate>
+                <DataTemplate x:DataType="olakino:ListItem">
+                    <Grid MinHeight="64">
+                        <StackPanel VerticalAlignment="Center">
+                            <TextBlock Text="{x:Bind Title}"></TextBlock>
+                            <TextBlock Margin="0,4,0,0" Text="{x:Bind Description}"></TextBlock>
+                        </StackPanel>
+                    </Grid>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
 
         <StackPanel Grid.Row="3" Margin="0,32,0,32" Orientation="Horizontal" HorizontalAlignment="Right">
             <TextBlock Text="Remaining" Margin="0,0,16,0" FontSize="20" VerticalAlignment="Center" />
