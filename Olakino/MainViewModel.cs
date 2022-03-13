@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Threading;
 using Windows.ApplicationModel.Core;
+using Windows.Globalization.NumberFormatting;
 using Windows.UI.Core;
 using Windows.UI.Xaml;
 
@@ -58,6 +59,13 @@ public class MainViewModel : INotifyPropertyChanged
         }
     }
 
+    public PercentFormatter PercentFormatter => new()
+    {
+        IntegerDigits = 1,
+        FractionDigits = 1,
+        NumberRounder = new SignificantDigitsNumberRounder()
+    };
+
     private double _gram;
 
     public double Gram
@@ -102,7 +110,7 @@ public class MainViewModel : INotifyPropertyChanged
 
     private void UpdateGram()
     {
-        Gram = Amount * Percent * 0.01 * 0.789;
+        Gram = Amount * Math.Round(Percent, 2) * 0.789;
     }
 
     private async void OnTimerUpdated(object state)
