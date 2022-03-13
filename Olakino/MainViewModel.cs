@@ -17,7 +17,7 @@ public class MainViewModel : INotifyPropertyChanged
 
     public ObservableCollection<ListItem> Items { get; } = new();
 
-    private TimeSpan _selectedTime;
+    private TimeSpan _selectedTime = TimeSpan.Parse("22:00:00");
 
     public TimeSpan SelectedTime
     {
@@ -73,16 +73,7 @@ public class MainViewModel : INotifyPropertyChanged
 
     private double _currentAmount;
 
-    public double CurrentAmount
-    {
-        get => _currentAmount;
-        private set
-        {
-            if (Math.Abs(_currentAmount - value) < 0.01) return;
-            _currentAmount = value;
-            OnPropertyChanged();
-        }
-    }
+    public string CurrentAmount => $"{_currentAmount:N}g";
 
     private string _remainingTime = string.Empty;
 
@@ -104,8 +95,9 @@ public class MainViewModel : INotifyPropertyChanged
 
     public void OnAddClick(object sender, RoutedEventArgs e)
     {
-        CurrentAmount += Gram;
-        Items.Add(new ListItem($"{Gram:N}", $"{Amount:N} / {Percent:P1}"));
+        Items.Add(new ListItem($"{Gram:N}g", $"{Amount:N} / {Percent:P1}"));
+        _currentAmount += Gram;
+        OnPropertyChanged(nameof(CurrentAmount));
     }
 
     private void UpdateGram()
@@ -116,7 +108,7 @@ public class MainViewModel : INotifyPropertyChanged
     private async void OnTimerUpdated(object state)
     {
         var duration = SelectedTime.Subtract(DateTime.Now.TimeOfDay);
-        var text = duration.ToString();
+        var text = $"{duration.Hours:00}:{duration.Minutes:00}:{duration.Seconds:00}";
         if (duration <= TimeSpan.Zero)
         {
             text = "NaN";
