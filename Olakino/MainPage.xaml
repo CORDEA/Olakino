@@ -17,7 +17,7 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <TimePicker x:Name="TimePicker" SelectedTimeChanged="OnSelectedTimeChanged" Grid.Row="0"
+        <TimePicker Grid.Row="0"
                     HorizontalAlignment="Right" MinWidth="400" Margin="32,0,32,0" ClockIdentifier="24HourClock"
                     Time="22:00:00" />
 
@@ -42,17 +42,17 @@
             <TextBlock Grid.Row="0" Grid.Column="2" Text="%" />
             <TextBlock Grid.Row="0" Grid.Column="4" Text="g" />
 
-            <muxc:NumberBox Grid.Row="2" Grid.Column="0" Value="{x:Bind Path=Amount, Mode=TwoWay}" />
+            <muxc:NumberBox Grid.Row="2" Grid.Column="0" Value="{x:Bind Path=ViewModel.Amount, Mode=TwoWay}" />
             <TextBlock Grid.Row="2" Grid.Column="1" Margin="8,0,8,0" VerticalAlignment="Center">*</TextBlock>
-            <muxc:NumberBox Grid.Row="2" Grid.Column="2" Value="{x:Bind Path=Percent, Mode=TwoWay}" />
+            <muxc:NumberBox Grid.Row="2" Grid.Column="2" Value="{x:Bind Path=ViewModel.Percent, Mode=TwoWay}" />
             <TextBlock Grid.Row="2" Grid.Column="3" Margin="8,0,8,0" VerticalAlignment="Center">=</TextBlock>
-            <muxc:NumberBox Grid.Row="2" Grid.Column="4" Value="{x:Bind Path=Gram, Mode=TwoWay}" />
-            <Button x:Name="AddButton" Click="OnAddClick" Grid.Row="2" Grid.Column="6" HorizontalAlignment="Stretch">
+            <muxc:NumberBox Grid.Row="2" Grid.Column="4" Value="{x:Bind Path=ViewModel.Gram, Mode=TwoWay}" />
+            <Button Grid.Row="2" Grid.Column="6" HorizontalAlignment="Stretch">
                 <TextBlock Text="Add" />
             </Button>
         </Grid>
 
-        <ListView Grid.Row="2" ItemsSource="{x:Bind Items}" Margin="0,32,0,16">
+        <ListView Grid.Row="2" ItemsSource="{x:Bind ViewModel.Items}" Margin="0,32,0,16">
             <ListView.ItemTemplate>
                 <DataTemplate x:DataType="olakino:ListItem">
                     <Grid MinHeight="64">
