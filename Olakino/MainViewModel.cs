@@ -3,6 +3,8 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Threading;
+using Windows.ApplicationModel.Core;
+using Windows.UI.Core;
 using Windows.UI.Xaml;
 
 namespace Olakino;
@@ -56,10 +58,44 @@ public class MainViewModel : INotifyPropertyChanged
         }
     }
 
-    public double Gram { get; set; }
+    private double _gram;
 
-    public double CurrentAmount { get; private set; }
-    public string RemainingTime { get; private set; } = string.Empty;
+    public double Gram
+    {
+        get => _gram;
+        set
+        {
+            if (Math.Abs(_gram - value) < 0.01) return;
+            _gram = value;
+            OnPropertyChanged();
+        }
+    }
+
+    private double _currentAmount;
+
+    public double CurrentAmount
+    {
+        get => _currentAmount;
+        private set
+        {
+            if (Math.Abs(_currentAmount - value) < 0.01) return;
+            _currentAmount = value;
+            OnPropertyChanged();
+        }
+    }
+
+    private string _remainingTime = string.Empty;
+
+    public string RemainingTime
+    {
+        get => _remainingTime;
+        private set
+        {
+            if (_remainingTime == value) return;
+            _remainingTime = value;
+            OnPropertyChanged();
+        }
+    }
 
     public MainViewModel()
     {
@@ -69,17 +105,15 @@ public class MainViewModel : INotifyPropertyChanged
     public void OnAddClick(object sender, RoutedEventArgs e)
     {
         CurrentAmount += Gram;
-        // CurrentAmountText.Text = $"{_currentAmount:N}";
         Items.Add(new ListItem($"{Gram:N}", $"{Amount:N} / {Percent:P1}"));
     }
 
     private void UpdateGram()
     {
-        // TODO
         Gram = Amount * Percent * 0.01 * 0.789;
     }
 
-    private void OnTimerUpdated(object state)
+    private async void OnTimerUpdated(object state)
     {
         var duration = SelectedTime.Subtract(DateTime.Now.TimeOfDay);
         var text = duration.ToString();
@@ -90,7 +124,10 @@ public class MainViewModel : INotifyPropertyChanged
             _timer = null;
         }
 
-        RemainingTime = text;
+        await CoreApplication.MainView.Dispatcher.RunAsync(
+            CoreDispatcherPriority.Normal,
+            () => RemainingTime = text
+        );
     }
 
 
