@@ -16,6 +16,7 @@ namespace Olakino
     {
         private Timer? _timer;
         private TimeSpan _timeSpan;
+        private double _currentAmount = 0;
 
         public MainPage()
         {
@@ -26,6 +27,13 @@ namespace Olakino
         private void OnAddClick(object sender, RoutedEventArgs e)
         {
             var gram = GramTextBox.Text;
+            if (!double.TryParse(gram, out var value))
+            {
+                return;
+            }
+
+            _currentAmount += value;
+            CurrentAmountText.Text = _currentAmount.ToString(CultureInfo.CurrentCulture);
         }
 
         private void OnAmountTextChanged(object sender, TextChangedEventArgs e)

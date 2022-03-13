@@ -56,7 +56,7 @@
             <TextBlock Text="Remaining" Margin="0,0,16,0" FontSize="20" VerticalAlignment="Center" />
             <TextBlock x:Name="TimerText" Margin="0,0,32,0" FontSize="32" />
             <TextBlock Text="Current amount" Margin="0,0,16,0" FontSize="20" VerticalAlignment="Center" />
-            <TextBlock Margin="0,0,0,0" FontSize="32" />
+            <TextBlock x:Name="CurrentAmountText" Margin="0,0,0,0" FontSize="32" />
         </StackPanel>
     </Grid>
 </Page>
