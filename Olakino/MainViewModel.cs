@@ -4,7 +4,6 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Threading;
 using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
 
 namespace Olakino;
 
@@ -13,10 +12,25 @@ public class MainViewModel : INotifyPropertyChanged
     public event PropertyChangedEventHandler? PropertyChanged;
 
     private Timer? _timer;
-    private TimeSpan _timeSpan;
-    private double _currentAmount;
 
-    public ObservableCollection<ListItem> Items { get; } = new ObservableCollection<ListItem>();
+    public ObservableCollection<ListItem> Items { get; } = new();
+
+    private TimeSpan _selectedTime;
+
+    public TimeSpan SelectedTime
+    {
+        get => _selectedTime;
+        set
+        {
+            if (_selectedTime == value)
+            {
+                return;
+            }
+
+            _selectedTime = value;
+            TryStartTimer();
+        }
+    }
 
     private double _amount;
 
@@ -44,14 +58,17 @@ public class MainViewModel : INotifyPropertyChanged
 
     public double Gram { get; set; }
 
+    public double CurrentAmount { get; private set; }
+    public string RemainingTime { get; private set; } = string.Empty;
+
     public MainViewModel()
     {
         TryStartTimer();
     }
 
-    private void OnAddClick(object sender, RoutedEventArgs e)
+    public void OnAddClick(object sender, RoutedEventArgs e)
     {
-        _currentAmount += Gram;
+        CurrentAmount += Gram;
         // CurrentAmountText.Text = $"{_currentAmount:N}";
         Items.Add(new ListItem($"{Gram:N}", $"{Amount:N} / {Percent:P1}"));
     }
@@ -62,9 +79,9 @@ public class MainViewModel : INotifyPropertyChanged
         Gram = Amount * Percent * 0.01 * 0.789;
     }
 
-    private async void OnTimerUpdated(object state)
+    private void OnTimerUpdated(object state)
     {
-        var duration = _timeSpan.Subtract(DateTime.Now.TimeOfDay);
+        var duration = SelectedTime.Subtract(DateTime.Now.TimeOfDay);
         var text = duration.ToString();
         if (duration <= TimeSpan.Zero)
         {
@@ -73,22 +90,13 @@ public class MainViewModel : INotifyPropertyChanged
             _timer = null;
         }
 
-        // await TimerText.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
-        //     TimerText.Text = text
-        // );
+        RemainingTime = text;
     }
 
-    private void OnSelectedTimeChanged(TimePicker sender, TimePickerSelectedValueChangedEventArgs args)
-    {
-        var time = args.NewTime;
-        if (time == null) return;
-        _timeSpan = time.Value;
-        TryStartTimer();
-    }
 
     private void TryStartTimer()
     {
-        var duration = _timeSpan.Subtract(DateTime.Now.TimeOfDay);
+        var duration = SelectedTime.Subtract(DateTime.Now.TimeOfDay);
         if (duration <= TimeSpan.Zero || _timer != null) return;
         _timer = new Timer(OnTimerUpdated, null, 1000, 1000);
     }
