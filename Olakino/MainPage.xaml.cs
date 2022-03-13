@@ -59,7 +59,7 @@ namespace Olakino
                 return;
             }
 
-            GramTextBox.Text = (amount * percent).ToString(CultureInfo.CurrentCulture);
+            GramTextBox.Text = $"{amount * percent * 0.01 * 0.789:N}";
         }
 
         private async void OnTimerUpdated(object state)
