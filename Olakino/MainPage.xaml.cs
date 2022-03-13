@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.ObjectModel;
-using System.Globalization;
 using System.Threading;
 using Windows.UI.Core;
 using Windows.UI.Xaml;
@@ -17,9 +16,35 @@ namespace Olakino
     {
         private Timer? _timer;
         private TimeSpan _timeSpan;
-        private double _currentAmount = 0;
+        private double _currentAmount;
 
         public ObservableCollection<ListItem> Items { get; } = new ObservableCollection<ListItem>();
+
+        private double _amount;
+
+        public double Amount
+        {
+            get => _amount;
+            set
+            {
+                _amount = value;
+                UpdateGram();
+            }
+        }
+
+        private double _percent;
+
+        public double Percent
+        {
+            get => _percent;
+            set
+            {
+                _percent = value;
+                UpdateGram();
+            }
+        }
+
+        public double Gram { get; set; }
 
         public MainPage()
         {
@@ -29,37 +54,15 @@ namespace Olakino
 
         private void OnAddClick(object sender, RoutedEventArgs e)
         {
-            if (!double.TryParse(GramTextBox.Text, out var gram) ||
-                !int.TryParse(AmountTextBox.Text, out var amount) ||
-                !double.TryParse(PercentTextBox.Text, out var percent))
-            {
-                return;
-            }
-
-            _currentAmount += gram;
-            CurrentAmountText.Text = _currentAmount.ToString(CultureInfo.CurrentCulture);
-            Items.Add(new ListItem($"{gram:N}", $"{amount:N} / {percent:P1}"));
-        }
-
-        private void OnAmountTextChanged(object sender, TextChangedEventArgs e)
-        {
-            UpdateGram();
-        }
-
-        private void OnPercentTextChanged(object sender, TextChangedEventArgs e)
-        {
-            UpdateGram();
+            _currentAmount += Gram;
+            CurrentAmountText.Text = $"{_currentAmount:N}";
+            Items.Add(new ListItem($"{Gram:N}", $"{Amount:N} / {Percent:P1}"));
         }
 
         private void UpdateGram()
         {
-            if (!int.TryParse(AmountTextBox.Text, out var amount) ||
-                !double.TryParse(PercentTextBox.Text, out var percent))
-            {
-                return;
-            }
-
-            GramTextBox.Text = $"{amount * percent * 0.01 * 0.789:N}";
+            // TODO
+            Gram = Amount * Percent * 0.01 * 0.789;
         }
 
         private async void OnTimerUpdated(object state)
