@@ -85,6 +85,10 @@ public class MainViewModel : INotifyPropertyChanged
 
     public string CurrentAmount => $"{_currentAmount:N}g";
 
+    private double _totalCalories;
+
+    public string TotalCalories => $"{_totalCalories:N0}kcal";
+
     private string _remainingTime = string.Empty;
 
     public string RemainingTime
@@ -107,7 +111,9 @@ public class MainViewModel : INotifyPropertyChanged
     {
         Items.Add(new ListItem($"{Gram:N}g", $"{Amount:N} / {Percent:P1}"));
         _currentAmount += Gram;
+        _totalCalories += Calorie;
         OnPropertyChanged(nameof(CurrentAmount));
+        OnPropertyChanged(nameof(TotalCalories));
     }
 
     private void UpdateGram()

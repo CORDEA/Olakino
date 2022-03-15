@@ -73,7 +73,9 @@
             <TextBlock Text="Remaining" Margin="0,0,16,0" FontSize="20" VerticalAlignment="Center" />
             <TextBlock Margin="0,0,32,0" FontSize="32" Text="{x:Bind ViewModel.RemainingTime, Mode=OneWay}" />
             <TextBlock Text="Current amount" Margin="0,0,16,0" FontSize="20" VerticalAlignment="Center" />
-            <TextBlock Margin="0,0,0,0" FontSize="32" Text="{x:Bind ViewModel.CurrentAmount, Mode=OneWay}" />
+            <TextBlock Margin="0,0,32,0" FontSize="32" Text="{x:Bind ViewModel.CurrentAmount, Mode=OneWay}" />
+            <TextBlock Text="Total calories" Margin="0,0,16,0" FontSize="20" VerticalAlignment="Center" />
+            <TextBlock Margin="0,0,0,0" FontSize="32" Text="{x:Bind ViewModel.TotalCalories, Mode=OneWay}" />
         </StackPanel>
     </Grid>
 </Page>
