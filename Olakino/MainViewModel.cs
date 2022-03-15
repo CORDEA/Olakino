@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Globalization;
 using System.Runtime.CompilerServices;
 using System.Threading;
 using Windows.ApplicationModel.Core;
@@ -109,7 +110,12 @@ public class MainViewModel : INotifyPropertyChanged
 
     public void OnAddClick(object sender, RoutedEventArgs e)
     {
-        Items.Add(new ListItem($"{Gram:N}g", $"{Amount:N} / {Percent:P1}"));
+        Items.Add(
+            new ListItem(
+                $"{Gram:N}g / {Calorie:N0}kcal",
+                DateTime.Now.ToString(CultureInfo.CurrentCulture)
+            )
+        );
         _currentAmount += Gram;
         _totalCalories += Calorie;
         OnPropertyChanged(nameof(CurrentAmount));
