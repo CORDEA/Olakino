@@ -61,8 +61,9 @@
                 <DataTemplate x:DataType="olakino:ListItem">
                     <Grid MinHeight="64">
                         <StackPanel VerticalAlignment="Center">
-                            <TextBlock Text="{x:Bind Title}" />
-                            <TextBlock Margin="0,4,0,0" Text="{x:Bind Description}" />
+                            <TextBlock Style="{ThemeResource BaseTextBlockStyle}" Text="{x:Bind Title}" />
+                            <TextBlock Margin="0,4,0,0" Style="{ThemeResource CaptionTextBlockStyle}"
+                                       Text="{x:Bind Description}" />
                         </StackPanel>
                     </Grid>
                 </DataTemplate>
@@ -70,12 +71,18 @@
         </ListView>
 
         <StackPanel Grid.Row="3" Margin="0,32,0,32" Orientation="Horizontal" HorizontalAlignment="Right">
-            <TextBlock Text="Remaining" Margin="0,0,16,0" FontSize="20" VerticalAlignment="Center" />
-            <TextBlock Margin="0,0,32,0" FontSize="32" Text="{x:Bind ViewModel.RemainingTime, Mode=OneWay}" />
-            <TextBlock Text="Current amount" Margin="0,0,16,0" FontSize="20" VerticalAlignment="Center" />
-            <TextBlock Margin="0,0,32,0" FontSize="32" Text="{x:Bind ViewModel.CurrentAmount, Mode=OneWay}" />
-            <TextBlock Text="Total calories" Margin="0,0,16,0" FontSize="20" VerticalAlignment="Center" />
-            <TextBlock Margin="0,0,0,0" FontSize="32" Text="{x:Bind ViewModel.TotalCalories, Mode=OneWay}" />
+            <TextBlock Text="Remaining" Margin="0,0,16,0" VerticalAlignment="Center"
+                       Style="{ThemeResource BodyTextBlockStyle}" />
+            <TextBlock Margin="0,0,32,0" Style="{ThemeResource TitleTextBlockStyle}"
+                       Text="{x:Bind ViewModel.RemainingTime, Mode=OneWay}" />
+            <TextBlock Text="Current amount" Margin="0,0,16,0" VerticalAlignment="Center"
+                       Style="{ThemeResource BodyTextBlockStyle}" />
+            <TextBlock Margin="0,0,32,0" Style="{ThemeResource TitleTextBlockStyle}"
+                       Text="{x:Bind ViewModel.CurrentAmount, Mode=OneWay}" />
+            <TextBlock Text="Total calories" Margin="0,0,16,0" VerticalAlignment="Center"
+                       Style="{ThemeResource BodyTextBlockStyle}" />
+            <TextBlock Margin="0,0,0,0" Style="{ThemeResource TitleTextBlockStyle}"
+                       Text="{x:Bind ViewModel.TotalCalories, Mode=OneWay}" />
         </StackPanel>
     </Grid>
 </Page>
