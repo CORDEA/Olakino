@@ -126,6 +126,9 @@
   <data name="GramLabel.Text" xml:space="preserve">
     <value>g</value>
   </data>
+  <data name="MainListTitle" xml:space="preserve">
+    <value>{0:N}g / {1:N0}kcal</value>
+  </data>
   <data name="PercentLabel.Text" xml:space="preserve">
     <value>%</value>
   </data>
@@ -135,7 +138,13 @@
   <data name="TotalAmountLabel.Text" xml:space="preserve">
     <value>Total amount</value>
   </data>
+  <data name="TotalAmountValue" xml:space="preserve">
+    <value>{0:N}g</value>
+  </data>
   <data name="TotalCaloriesLabel.Text" xml:space="preserve">
     <value>Total calories</value>
+  </data>
+  <data name="TotalCaloriesValue" xml:space="preserve">
+    <value>{0:N0}kcal</value>
   </data>
 </root>

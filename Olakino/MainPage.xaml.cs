@@ -18,7 +18,8 @@ namespace Olakino
             this.InitializeComponent();
             ApplicationView.PreferredLaunchViewSize = new Size(1000, 400);
             ApplicationView.PreferredLaunchWindowingMode = ApplicationViewWindowingMode.PreferredLaunchViewSize;
-            ViewModel = new MainViewModel();
+            var resourceLoader = Windows.ApplicationModel.Resources.ResourceLoader.GetForCurrentView();
+            ViewModel = new MainViewModel(resourceLoader);
         }
     }
 }

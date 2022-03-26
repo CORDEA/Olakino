@@ -5,6 +5,7 @@ using System.Globalization;
 using System.Runtime.CompilerServices;
 using System.Threading;
 using Windows.ApplicationModel.Core;
+using Windows.ApplicationModel.Resources;
 using Windows.Globalization.NumberFormatting;
 using Windows.UI.Core;
 using Windows.UI.Xaml;
@@ -84,11 +85,13 @@ public class MainViewModel : INotifyPropertyChanged
 
     private double _currentAmount;
 
-    public string CurrentAmount => $"{_currentAmount:N}g";
+    public string CurrentAmount =>
+        string.Format(_resourceLoader.GetString("TotalAmountValue"), _currentAmount);
 
     private double _totalCalories;
 
-    public string TotalCalories => $"{_totalCalories:N0}kcal";
+    public string TotalCalories =>
+        string.Format(_resourceLoader.GetString("TotalCaloriesValue"), _totalCalories);
 
     private string _remainingTime = string.Empty;
 
@@ -103,8 +106,11 @@ public class MainViewModel : INotifyPropertyChanged
         }
     }
 
-    public MainViewModel()
+    private readonly ResourceLoader _resourceLoader;
+
+    public MainViewModel(ResourceLoader resourceLoader)
     {
+        _resourceLoader = resourceLoader;
         TryStartTimer();
     }
 
@@ -113,7 +119,7 @@ public class MainViewModel : INotifyPropertyChanged
         var calorie = Calorie * Amount / 100;
         Items.Add(
             new ListItem(
-                $"{Gram:N}g / {calorie:N0}kcal",
+                string.Format(_resourceLoader.GetString("MainListTitle"), Gram, calorie),
                 DateTime.Now.ToString(CultureInfo.CurrentCulture)
             )
         );
