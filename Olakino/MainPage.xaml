@@ -40,10 +40,10 @@
                 <ColumnDefinition Width="80" />
             </Grid.ColumnDefinitions>
 
-            <TextBlock Grid.Row="0" Grid.Column="0" Text="Amount" />
-            <TextBlock Grid.Row="0" Grid.Column="2" Text="%" />
-            <TextBlock Grid.Row="0" Grid.Column="4" Text="kcal / 100ml" />
-            <TextBlock Grid.Row="0" Grid.Column="6" Text="g" />
+            <TextBlock Grid.Row="0" Grid.Column="0" x:Uid="AmountLabel" />
+            <TextBlock Grid.Row="0" Grid.Column="2" x:Uid="PercentLabel" />
+            <TextBlock Grid.Row="0" Grid.Column="4" x:Uid="CalorieLabel" />
+            <TextBlock Grid.Row="0" Grid.Column="6" x:Uid="GramLabel" />
 
             <muxc:NumberBox Grid.Row="2" Grid.Column="0" Value="{x:Bind ViewModel.Amount, Mode=TwoWay}" />
             <muxc:NumberBox Grid.Row="2" Grid.Column="2" Value="{x:Bind ViewModel.Percent, Mode=TwoWay}"
@@ -71,15 +71,15 @@
         </ListView>
 
         <StackPanel Grid.Row="3" Margin="0,32,0,32" Orientation="Horizontal" HorizontalAlignment="Right">
-            <TextBlock Text="Remaining" Margin="0,0,16,0" VerticalAlignment="Center"
+            <TextBlock x:Uid="RemainingLabel" Margin="0,0,16,0" VerticalAlignment="Center"
                        Style="{ThemeResource BodyTextBlockStyle}" />
             <TextBlock Margin="0,0,32,0" Style="{ThemeResource TitleTextBlockStyle}"
                        Text="{x:Bind ViewModel.RemainingTime, Mode=OneWay}" />
-            <TextBlock Text="Current amount" Margin="0,0,16,0" VerticalAlignment="Center"
+            <TextBlock x:Uid="TotalAmountLabel" Margin="0,0,16,0" VerticalAlignment="Center"
                        Style="{ThemeResource BodyTextBlockStyle}" />
             <TextBlock Margin="0,0,32,0" Style="{ThemeResource TitleTextBlockStyle}"
                        Text="{x:Bind ViewModel.CurrentAmount, Mode=OneWay}" />
-            <TextBlock Text="Total calories" Margin="0,0,16,0" VerticalAlignment="Center"
+            <TextBlock x:Uid="TotalCaloriesLabel" Margin="0,0,16,0" VerticalAlignment="Center"
                        Style="{ThemeResource BodyTextBlockStyle}" />
             <TextBlock Margin="0,0,0,0" Style="{ThemeResource TitleTextBlockStyle}"
                        Text="{x:Bind ViewModel.TotalCalories, Mode=OneWay}" />
