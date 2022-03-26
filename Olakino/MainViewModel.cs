@@ -110,14 +110,15 @@ public class MainViewModel : INotifyPropertyChanged
 
     public void OnAddClick(object sender, RoutedEventArgs e)
     {
+        var calorie = Calorie * Amount / 100;
         Items.Add(
             new ListItem(
-                $"{Gram:N}g / {Calorie:N0}kcal",
+                $"{Gram:N}g / {calorie:N0}kcal",
                 DateTime.Now.ToString(CultureInfo.CurrentCulture)
             )
         );
         _currentAmount += Gram;
-        _totalCalories += Calorie;
+        _totalCalories += calorie;
         OnPropertyChanged(nameof(CurrentAmount));
         OnPropertyChanged(nameof(TotalCalories));
     }

@@ -42,7 +42,7 @@
 
             <TextBlock Grid.Row="0" Grid.Column="0" Text="Amount" />
             <TextBlock Grid.Row="0" Grid.Column="2" Text="%" />
-            <TextBlock Grid.Row="0" Grid.Column="4" Text="kcal" />
+            <TextBlock Grid.Row="0" Grid.Column="4" Text="kcal / 100ml" />
             <TextBlock Grid.Row="0" Grid.Column="6" Text="g" />
 
             <muxc:NumberBox Grid.Row="2" Grid.Column="0" Value="{x:Bind ViewModel.Amount, Mode=TwoWay}" />
